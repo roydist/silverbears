@@ -64,7 +64,11 @@ function sbCard(property) {
       '">' +
       (property.availableSpaces ? "Available" : "Fully leased") +
       "</span></div>"
-    : '<div class="card-visual card-visual--type"><span class="mono-state">' +
+    : '<div class="card-visual card-visual--type"><span class="badge' +
+      (property.availableSpaces ? "" : " badge-leased") +
+      '">' +
+      (property.availableSpaces ? "Available" : "Fully leased") +
+      '</span><span class="mono-state">' +
       property.state +
       '</span><span class="mono-city">' +
       property.city +
@@ -196,6 +200,12 @@ function sbInitPropertiesPage() {
     size.addEventListener(evt, render);
   });
 
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("q")) q.value = params.get("q");
+  if (params.get("state")) state.value = params.get("state");
+  if (params.get("availability")) availability.value = params.get("availability");
+  if (params.get("size")) size.value = params.get("size");
+
   const clearBtn = document.querySelector("[data-clear-filters]");
   if (clearBtn) {
     clearBtn.addEventListener("click", function () {
@@ -210,6 +220,7 @@ function sbInitPropertiesPage() {
   }
 
   refreshCities();
+  if (params.get("city")) city.value = params.get("city");
   render();
 }
 
