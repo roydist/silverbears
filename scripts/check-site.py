@@ -41,6 +41,23 @@ forbidden = [
     "Lot #",
     "0 Properties Found",
     "0 properties found",
+    "Connecting communities through exceptional shopping experience.",
+    "family-owned owner and manager",
+    "There is no separate About page",
+    "We do not pad this site",
+    "dummy lot",
+    "dummy lot number",
+    "state mega-menu",
+    "tenant-category maze",
+    "This is not in the header",
+    "not in the main navigation",
+    "not in the header or the mobile menu",
+    "not a public upload",
+    "The old leasing page was a wall of legal text",
+    "Retail space in real shopping centers.",
+    "Choose a real shopping center",
+    "323,652 SF",
+    "323652 SF",
 ]
 site_text = "\n".join(path.read_text() for path in DOCS.rglob("*.html"))
 for needle in forbidden:
@@ -76,7 +93,10 @@ for name in ("index.html", "properties/index.html", "how-to-lease/index.html", "
 
 home = (DOCS / "index.html").read_text()
 assert home.count("<h1>") == 1
-assert "Retail space in real shopping centers." in home
+assert "Retail space in grocery-anchored centers." in home
+assert "5 outlots available" in home
+assert "323,652" not in home
+assert "1 outlot available" in home
 assert "hero-photo" in home
 assert "hero-overlay" in home
 assert "18" in home and "centers with space" in home
@@ -95,13 +115,45 @@ assert "Inquire" in lease
 assert "Credit check" in lease
 assert "Five steps" not in lease
 assert "Credit Check Authorization" in lease
+assert "Every applicant completes a credit and background check." in lease
 assert "Not Available" not in lease
+assert "public upload" not in lease
+assert "WordPress" not in lease
 
 contact = (DOCS / "contact/index.html").read_text()
 assert "I-Southport Plaza" in contact
 assert "The Village Shoppes of Madison" in contact
+assert "This form opens your email to leasing@bearsmgmt.com." in contact
+assert "Tenants: describe the issue and pick the shopping center." in contact
 assert "Not Available" not in contact
 assert "Lot #" not in contact
+assert "dummy" not in contact.lower()
+assert "not in the header" not in contact
+
+highlands = (DOCS / "properties" / "the-highlands" / "index.html").read_text()
+assert "5 outlots available" in highlands
+assert "323,652" not in highlands
+assert "50,529" in highlands
+assert "84,945" in highlands
+assert "55,757" in highlands
+assert "54,885" in highlands
+assert "77,536" in highlands
+assert "pad sites" in highlands
+assert "5 spaces" not in highlands
+
+southport_outlot = (DOCS / "properties" / "i-southport-plaza" / "index.html").read_text()
+assert "1 outlot available" in southport_outlot
+assert "1 space · 3,000 SF" not in southport_outlot
+
+cedar = (DOCS / "properties" / "cedar-crest" / "index.html").read_text()
+assert "3 spaces · 38,480 SF" in cedar
+assert "1 outlot available" in cedar
+assert "4 spaces · 42,680 SF" not in cedar
+
+regency = (DOCS / "properties" / "regency-point" / "index.html").read_text()
+assert "1 space · 2,310 SF" in regency
+assert "1 outlot available" in regency
+assert "2 spaces · 7,310 SF" not in regency
 
 site_js = (DOCS / "js" / "site.js").read_text()
 assert "badge" not in site_js
@@ -118,4 +170,4 @@ assert "DM Sans" in css
 assert (DOCS / "assets" / "hero.jpg").exists()
 assert (DOCS / ".nojekyll").exists()
 
-print("ok: designer system, 18 available on Home, three lease steps, no leftover WordPress junk")
+print("ok: tenant-facing copy, outlots labeled, no builder notes")

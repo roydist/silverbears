@@ -30,11 +30,33 @@ def fmt_num(n: int) -> str:
     return f"{n:,}"
 
 
+def is_outlot(space: dict) -> bool:
+    sid = str(space.get("id") or "").lstrip("#").upper()
+    note = str(space.get("note") or "").lower()
+    return "outlot" in note or sid.startswith("OP")
+
+
+def split_listings(p: dict) -> tuple[list[dict], list[dict]]:
+    spaces = p.get("spaces") or []
+    outlots = [s for s in spaces if is_outlot(s)]
+    suites = [s for s in spaces if not is_outlot(s)]
+    return outlots, suites
+
+
 def availability(p: dict) -> str:
     if not p["availableSpaces"]:
         return "Fully leased"
-    spaces = "1 space" if p["availableSpaces"] == 1 else f"{p['availableSpaces']} spaces"
-    return f"{spaces} · {fmt_num(p['availableSf'])} SF"
+    outlots, suites = split_listings(p)
+    parts: list[str] = []
+    if suites:
+        n = len(suites)
+        sf = sum(int(s.get("sf") or 0) for s in suites)
+        label = "1 space" if n == 1 else f"{n} spaces"
+        parts.append(f"{label} · {fmt_num(sf)} SF")
+    if outlots:
+        n = len(outlots)
+        parts.append("1 outlot available" if n == 1 else f"{n} outlots available")
+    return " · ".join(parts) if parts else "Fully leased"
 
 
 def by_id(pid: str) -> dict:
@@ -191,21 +213,45 @@ def property_content(p: dict) -> str:
             f'<div class="property-photo card-visual card-visual--type">'
             f'<span class="mono-state">{state}</span><span class="mono-city">{city}</span></div>'
         )
+    outlots, suites = split_listings(p)
     if p["availableSpaces"]:
         rows = []
         for space in p.get("spaces") or []:
             note = f' <span class="muted">({escape(space["note"])})</span>' if space.get("note") else ""
             sf = f'{fmt_num(space["sf"])} SF' if space.get("sf") else "—"
             rows.append(f'<tr><td>{escape(space["id"])}{note}</td><td>{sf}</td></tr>')
-        body = "".join(rows) or "<tr><td colspan='2'>See leasing for current suites.</td></tr>"
+        body = "".join(rows) or "<tr><td colspan='2'>See leasing for current listings.</td></tr>"
+        if outlots and not suites:
+            heading = "Available outlots"
+            col = "Outlot"
+        elif outlots and suites:
+            heading = "Available space"
+            col = "Listing"
+        else:
+            heading = "Available space"
+            col = "Suite"
         spaces_block = (
-            f"<h2>Available space</h2><p>{avail}.</p>"
-            f"<table class='spaces-table'><thead><tr><th>Suite</th><th>Size</th></tr></thead><tbody>{body}</tbody></table>"
+            f"<h2>{heading}</h2><p>{avail}.</p>"
+            f"<table class='spaces-table'><thead><tr><th>{col}</th><th>Size</th></tr></thead><tbody>{body}</tbody></table>"
         )
     else:
         spaces_block = (
-            "<h2>Availability</h2><p>This center is in the portfolio and is fully leased right now. "
+            "<h2>Availability</h2><p>This center is fully leased right now. "
             "Ask leasing about upcoming space or nearby centers.</p>"
+        )
+    if outlots and not suites:
+        listing_note = (
+            f"Shopping center in {city}, {state_name}. Available listings are outlots / pad sites, "
+            "not inline shop suites. Inquire below, or go to How to lease for application forms."
+        )
+    elif outlots and suites:
+        listing_note = (
+            f"Shopping center in {city}, {state_name}. Listings include shop suites and outlots / pad sites. "
+            "Inquire below, or go to How to lease for application forms."
+        )
+    else:
+        listing_note = (
+            f"Shopping center in {city}, {state_name}. Inquire about a listing, or go to How to lease for application forms."
         )
     map_href = ""
     if p.get("address"):
@@ -227,7 +273,7 @@ def property_content(p: dict) -> str:
       {photo}
       <div>
         <p>{avail}.</p>
-        <p>Family-owned shopping center in {city}, {state_name}. Inquire about a suite that is listed as available, or go to How to lease for application forms.</p>
+        <p>{listing_note}</p>
         {directions}
         <p><a class="btn" href="#inquire">Inquire about this center</a></p>
       </div>
@@ -238,7 +284,7 @@ def property_content(p: dict) -> str:
     <div class="section" id="inquire">
       <div class="panel">
         <h2>Inquire about {name}</h2>
-        <p class="form-note">Opens your email to leasing@bearsmgmt.com. Nothing is stored on this website.</p>
+        <p class="form-note">Opens your email to leasing@bearsmgmt.com.</p>
         <form data-mailto-form data-to="leasing@bearsmgmt.com">
           <input type="hidden" name="_subject" value="Leasing inquiry: {name}">
           <label class="field">Name<input name="Name" required></label>
@@ -264,7 +310,7 @@ def build() -> None:
     <img class="hero-photo" src="ROOT/assets/hero.jpg" alt="Southport Plaza shopping center">
     <div class="hero-overlay"></div>
     <div class="wrap">
-      <h1>Retail space in real shopping centers.</h1>
+      <h1>Retail space in grocery-anchored centers.</h1>
     </div>
   </section>
   <section class="proof">
@@ -291,14 +337,14 @@ def build() -> None:
           <div class="step-num">01</div>
           <div>
             <h3>Browse</h3>
-            <p>Open a center and pick a suite by size and notes.</p>
+            <p>Open a center and pick a suite or outlot.</p>
           </div>
         </article>
         <article class="step">
           <div class="step-num">02</div>
           <div>
             <h3>Inquire</h3>
-            <p>Email leasing or use the contact form. Name the center and suite if you know it.</p>
+            <p>Email leasing or use the contact form. Name the center and listing if you know it.</p>
           </div>
         </article>
         <article class="step">
@@ -367,7 +413,7 @@ def build() -> None:
             """  <section class="page-hero">
     <div class="wrap">
       <h1>How to lease</h1>
-      <p class="lede">Three steps. Forms go to Mary Garcia and the leasing desk — not a public upload.</p>
+      <p class="lede">Three steps: browse a center, send an inquiry, then complete a credit check with the leasing team.</p>
     </div>
   </section>
   <section class="section">
@@ -377,7 +423,7 @@ def build() -> None:
           <div class="step-num">01</div>
           <div>
             <h2>Browse</h2>
-            <p>Pick a center and suite from the listings. Confirm size and notes.</p>
+            <p>Pick a center and a suite or outlot from the listings. Confirm size and notes.</p>
             <p><a class="view" href="ROOT/properties/">Open the property list</a></p>
           </div>
         </article>
@@ -406,6 +452,7 @@ def build() -> None:
           <a class="form-link" href="ROOT/assets/forms/personal-financial-statement.pdf">Personal Financial Statement <span>PDF</span></a>
         </div>
         <p>Email completed forms to <a href="mailto:mary@silverbears.com">mary@silverbears.com</a>.</p>
+        <p>Every applicant completes a credit and background check.</p>
       </aside>
     </div>
   </section>""",
@@ -423,7 +470,7 @@ def build() -> None:
             f"""  <section class="page-hero">
     <div class="wrap">
       <h1>Contact</h1>
-      <p class="lede">Space inquiries go to leasing@bearsmgmt.com. The form opens your email client. There is no public document upload.</p>
+      <p class="lede">Space inquiries go to leasing@bearsmgmt.com. The form opens your email to that address.</p>
     </div>
   </section>
   <section class="section">
@@ -448,7 +495,7 @@ def build() -> None:
     <div class="wrap split">
       <div class="panel">
         <h2>Leasing inquiry</h2>
-        <p class="form-note">Choose a real shopping center. This form opens your email app to leasing@bearsmgmt.com.</p>
+        <p class="form-note">This form opens your email to leasing@bearsmgmt.com.</p>
         <form data-mailto-form data-to="leasing@bearsmgmt.com">
           <input type="hidden" name="_subject" value="Leasing inquiry from silverbears.com">
           <label class="field">Name<input name="Name" required autocomplete="name"></label>
@@ -461,7 +508,7 @@ def build() -> None:
       </div>
       <div class="panel" id="maintenance">
         <h2>Maintenance report</h2>
-        <p class="form-note">Tenants: describe the issue and pick the shopping center. This is not in the header.</p>
+        <p class="form-note">Tenants: describe the issue and pick the shopping center.</p>
         <form data-mailto-form data-to="mary@silverbears.com">
           <input type="hidden" name="_subject" value="Maintenance report">
           <label class="field">Name<input name="Name" required></label>
@@ -487,9 +534,9 @@ def build() -> None:
             """  <section class="page-hero">
     <div class="wrap legal">
       <h1>Privacy</h1>
-      <p>This GitHub Pages site is a static marketing website. Inquiry and maintenance forms open your own email app; they do not store messages on this host.</p>
-      <p>If you send us an email, we will use your name, contact details, and message to respond to a leasing or property-management request. Application forms you submit may include financial and identification information, which we use to evaluate a lease — see <a href="ROOT/how-to-lease/">How to lease</a>.</p>
-      <p>This page is a short placeholder for the Pages deployment. The longer policy used on the current WordPress site remains at <a href="https://silverbears.com/privacy-policy/">silverbears.com/privacy-policy</a>. Privacy questions: <a href="mailto:privacy@silverbears.com">privacy@silverbears.com</a>.</p>
+      <p>Inquiry and maintenance forms open your email app. They do not store messages on this site.</p>
+      <p>If you email us, we use your name, contact details, and message to respond to a leasing or property-management request. Application forms may include financial information, which we use to evaluate a lease — see <a href="ROOT/how-to-lease/">How to lease</a>.</p>
+      <p>A longer privacy policy is at <a href="https://silverbears.com/privacy-policy/">silverbears.com/privacy-policy</a>. Questions: <a href="mailto:privacy@silverbears.com">privacy@silverbears.com</a>.</p>
     </div>
   </section>""",
             extra_js=False,
@@ -506,9 +553,9 @@ def build() -> None:
             """  <section class="page-hero">
     <div class="wrap legal">
       <h1>Terms</h1>
-      <p>This website describes shopping centers in the Silver Bears portfolio and how to inquire about leasing. Listings, suite sizes, and availability can change. Nothing here is an offer to lease until we sign a written agreement.</p>
-      <p>Do not use this site for anything unlawful. Photos and property information are provided for prospective tenants and shoppers. Application forms are for genuine lease inquiries only.</p>
-      <p>This page is a short placeholder for the Pages deployment. The live WordPress terms remain at <a href="https://silverbears.com/terms-and-conditions/">silverbears.com/terms-and-conditions</a>.</p>
+      <p>This website describes shopping centers in the Silver Bears portfolio and how to inquire about leasing. Listings, sizes, and availability can change. Nothing here is an offer to lease until we sign a written agreement.</p>
+      <p>Do not use this site for anything unlawful. Application forms are for genuine lease inquiries only.</p>
+      <p>Longer terms are at <a href="https://silverbears.com/terms-and-conditions/">silverbears.com/terms-and-conditions</a>.</p>
     </div>
   </section>""",
             extra_js=False,
@@ -542,7 +589,7 @@ def build() -> None:
             """  <section class="page-hero">
     <div class="wrap">
       <h1>Send the email to finish</h1>
-      <p class="lede">This site cannot post messages by itself. If your email app opened, send the draft. If it did not, write directly to <a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a>.</p>
+      <p class="lede">If your email app opened, send the draft to finish. If it did not, write to <a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a>.</p>
       <p><a class="btn" href="ROOT/properties/">Back to properties</a></p>
     </div>
   </section>""",
