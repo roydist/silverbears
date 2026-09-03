@@ -4,7 +4,7 @@ Static marketing site for [Silver Bears Real Estate](https://silverbears.com) �
 
 **Live URL (GitHub Pages):** [https://roydist.github.io/silverbears/](https://roydist.github.io/silverbears/)
 
-That URL goes live after this repo has GitHub Pages enabled (GitHub Actions as the source) and the workflow on `main` has succeeded.
+The files are on `main` and on the `gh-pages` branch. A repo admin still needs to turn Pages on once (Settings → Pages → deploy `gh-pages` / root). The GitHub token used here cannot create a Pages site.
 
 ## Pages
 
