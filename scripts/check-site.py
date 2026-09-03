@@ -42,6 +42,7 @@ forbidden = [
     "0 Properties Found",
     "0 properties found",
     "Connecting communities through exceptional shopping experience.",
+    "Your investment is our investment.",
     "family-owned owner and manager",
     "There is no separate About page",
     "We do not pad this site",
@@ -92,6 +93,8 @@ for name in ("index.html", "properties/index.html", "how-to-lease/index.html", "
 home = (DOCS / "index.html").read_text()
 assert home.count("<h1>") == 1
 assert "Retail space in grocery-anchored centers." in home
+assert "Your investment is our investment." not in home
+assert "Connecting communities" not in home
 assert "4 / 13,466 SF" in home
 assert "5 / 323,652 SF" in home
 assert "4 / 42,680 SF" in home
