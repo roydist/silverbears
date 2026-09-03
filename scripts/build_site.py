@@ -59,6 +59,15 @@ def availability(p: dict) -> str:
     return " · ".join(parts) if parts else "Fully leased"
 
 
+def card_line(p: dict) -> str:
+    if not p["availableSpaces"]:
+        return "Fully leased"
+    return f"{p['availableSpaces']} / {fmt_num(p['availableSf'])} SF"
+
+
+FEATURED_IDS = ("waynetowne-plaza", "the-highlands", "cedar-crest")
+
+
 def by_id(pid: str) -> dict:
     return next(p for p in PROPERTIES if p["id"] == pid)
 
@@ -170,33 +179,19 @@ def card_html(p: dict) -> str:
     name = escape(p["name"])
     city = escape(p["city"])
     href = f'ROOT/properties/{escape(p["id"])}/'
-    if p.get("photo"):
-        visual = (
-            f'<a class="card-visual" href="{href}">'
-            f'<img src="ROOT/{escape(p["photo"])}" alt="{name} in {city}" width="800" height="500" loading="lazy">'
-            f"</a>"
-        )
-    else:
-        visual = (
-            f'<a class="card-visual card-visual--type" href="{href}">'
-            f'<span class="mono-state">{escape(p["state"])}</span>'
-            f'<span class="mono-city">{city}</span>'
-            f"</a>"
-        )
     return (
         f'<article class="property-card">'
-        f"{visual}"
-        f'<div class="card-body">'
         f"<h3><a href=\"{href}\">{name}</a></h3>"
+        f'<p class="card-meta">{escape(card_line(p))}</p>'
         f'<p class="place">{city}</p>'
-        f'<p class="card-meta">{escape(availability(p))}</p>'
         f'<a class="view" href="{href}">View</a>'
-        f"</div></article>"
+        f"</article>"
     )
 
 
 def featured_cards() -> str:
-    return "\n      ".join(card_html(p) for p in PROPERTIES if p["availableSpaces"] > 0)
+    by_slug = {p["id"]: p for p in PROPERTIES}
+    return "\n      ".join(card_html(by_slug[pid]) for pid in FEATURED_IDS)
 
 
 def property_content(p: dict) -> str:
@@ -321,10 +316,10 @@ def build() -> None:
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <h2>Centers with space</h2>
+        <h2>Featured centers</h2>
         <a class="view" href="ROOT/properties/">All properties</a>
       </div>
-      <div class="grid">
+      <div class="grid grid-featured">
       {featured_cards()}
       </div>
     </div>

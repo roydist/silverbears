@@ -56,8 +56,6 @@ forbidden = [
     "The old leasing page was a wall of legal text",
     "Retail space in real shopping centers.",
     "Choose a real shopping center",
-    "323,652 SF",
-    "323652 SF",
 ]
 site_text = "\n".join(path.read_text() for path in DOCS.rglob("*.html"))
 for needle in forbidden:
@@ -94,18 +92,26 @@ for name in ("index.html", "properties/index.html", "how-to-lease/index.html", "
 home = (DOCS / "index.html").read_text()
 assert home.count("<h1>") == 1
 assert "Retail space in grocery-anchored centers." in home
-assert "5 outlots available" in home
-assert "323,652" not in home
-assert "1 outlot available" in home
+assert "4 / 13,466 SF" in home
+assert "5 / 323,652 SF" in home
+assert "4 / 42,680 SF" in home
+assert home.index("Waynetowne Plaza") < home.index("The Highlands") < home.index("Cedar Crest")
 assert "hero-photo" in home
 assert "hero-overlay" in home
 assert "18" in home and "centers with space" in home
 assert 'id="about"' not in home
-for p in leased:
-    assert p["name"] not in home, f"zero-space center on Home: {p['name']}"
+assert "assets/properties/" not in home
+assert "card-visual" not in home
+featured = home.split('class="grid grid-featured"', 1)[1].split("</section>", 1)[0]
+featured_names = ["Waynetowne Plaza", "The Highlands", "Cedar Crest"]
+for name in featured_names:
+    assert name in featured, f"featured missing {name}"
 for p in available:
-    assert p["name"] in home, f"available center missing from Home: {p['name']}"
-assert home.count('class="view"') >= 18
+    if p["name"] not in featured_names:
+        assert p["name"] not in featured, f"extra center on Home: {p['name']}"
+for p in leased:
+    assert p["name"] not in featured, f"zero-space center on Home: {p['name']}"
+assert featured.count("property-card") == 3
 assert "badge" not in home
 
 lease = (DOCS / "how-to-lease/index.html").read_text()
@@ -159,7 +165,8 @@ site_js = (DOCS / "js" / "site.js").read_text()
 assert "badge" not in site_js
 assert ">View</a>" in site_js
 assert 'availability.value = "available"' in site_js
-assert "sbHref(property.photo)" in site_js
+assert "sbCardLine" in site_js
+assert "property.photo" not in site_js
 
 css = (DOCS / "css" / "styles.css").read_text()
 assert "#f4f5f6" in css.lower() or "#F4F5F6" in css
@@ -170,4 +177,4 @@ assert "DM Sans" in css
 assert (DOCS / "assets" / "hero.jpg").exists()
 assert (DOCS / ".nojekyll").exists()
 
-print("ok: tenant-facing copy, outlots labeled, no builder notes")
+print("ok: type-only cards, three featured centers, designer system")
