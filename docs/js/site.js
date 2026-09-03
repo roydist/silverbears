@@ -79,10 +79,22 @@ function sbCardLine(property) {
   var spaces = property.spaces || [];
   var outlots = spaces.filter(sbIsOutlot);
   var suites = spaces.filter(function (s) { return !sbIsOutlot(s); });
+  if (suites.length && !outlots.length) {
+    var sf = suites.reduce(function (sum, s) { return sum + (Number(s.sf) || 0); }, 0);
+    return suites.length + " / " + sbFormatNumber(sf) + " SF";
+  }
   if (outlots.length && !suites.length) {
     return outlots.length === 1 ? "1 outlot" : outlots.length + " outlots";
   }
-  return property.availableSpaces + " / " + sbFormatNumber(property.availableSf) + " SF";
+  var parts = [];
+  if (suites.length) {
+    var sf2 = suites.reduce(function (sum, s) { return sum + (Number(s.sf) || 0); }, 0);
+    parts.push(suites.length + " / " + sbFormatNumber(sf2) + " SF");
+  }
+  if (outlots.length) {
+    parts.push(outlots.length === 1 ? "1 outlot" : outlots.length + " outlots");
+  }
+  return parts.join(" + ");
 }
 
 function sbCard(property) {
