@@ -47,13 +47,20 @@ There is no sample-page, no spreadsheet export, and no tenant-category filter.
 
 ## GitHub Pages
 
-Deployment is GitHub Actions (`.github/workflows/pages.yml`):
+The site files are ready in two places:
 
-1. Push or merge to `main`
-2. The workflow uploads `docs/` and deploys with `actions/deploy-pages`
-3. The site is served at `https://roydist.github.io/silverbears/`
+- `docs/` on `main` (GitHub Actions workflow in `.github/workflows/pages.yml`)
+- `gh-pages` branch (same site at the branch root)
 
-If the first run fails with a Pages permissions error, in the GitHub repo open **Settings → Pages** and set **Source** to **GitHub Actions**. You can also point Pages at branch `main` / folder `/docs` as a fallback — the files in `docs/` are the entire site.
+This agent cannot flip **Settings → Pages** (the GitHub token is not allowed to create a Pages site). One click from a repo admin publishes https://roydist.github.io/silverbears/ :
+
+1. Open **Settings → Pages**
+2. **Build and deployment → Source:** Deploy from a branch
+3. **Branch:** `gh-pages` / folder `/ (root)` — Save
+
+Or: Source **GitHub Actions**, then re-run the “Deploy GitHub Pages” workflow on `main`.
+
+After that, center URLs look like `https://roydist.github.io/silverbears/properties/southport-plaza/`.
 
 ## Forms and PDFs
 
