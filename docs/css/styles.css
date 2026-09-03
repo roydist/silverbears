@@ -1,14 +1,15 @@
 :root {
   --bg: #f4f5f6;
   --ink: #1c1e21;
-  --accent: #1f4d3a;
+  --accent: #1b4a3a;
   --muted: #5c6168;
   --line: #d9dcde;
   --card: #ffffff;
   --overlay: rgba(28, 30, 33, 0.62);
   --wrap: 1080px;
   --header: 64px;
-  --font: "DM Sans", "Segoe UI", sans-serif;
+  --radius: 3px;
+  --font: "DM Sans", sans-serif;
 }
 
 *,
@@ -135,6 +136,7 @@ a:hover {
   width: 40px;
   height: 40px;
   border: 1px solid var(--line);
+  border-radius: var(--radius);
   background: var(--card);
   cursor: pointer;
 }
@@ -180,6 +182,7 @@ h1, h2, h3 {
   text-decoration: none;
   background: var(--accent);
   color: #fff;
+  border-radius: var(--radius);
 }
 
 .btn:hover,
@@ -307,6 +310,7 @@ main {
 .property-card {
   background: var(--card);
   border: 1px solid var(--line);
+  border-radius: var(--radius);
   padding: 20px 20px 18px;
   display: flex;
   flex-direction: column;
@@ -420,6 +424,7 @@ textarea {
   color: var(--ink);
   background: var(--card);
   border: 1px solid var(--line);
+  border-radius: var(--radius);
   min-height: 42px;
   padding: 8px 10px;
   width: 100%;
@@ -441,6 +446,7 @@ textarea {
 
 .empty {
   border: 1px dashed var(--line);
+  border-radius: var(--radius);
   padding: 40px 20px;
   text-align: center;
 }
@@ -460,6 +466,7 @@ textarea {
   grid-template-columns: 48px 1fr;
   gap: 16px;
   border: 1px solid var(--line);
+  border-radius: var(--radius);
   background: var(--card);
   padding: 20px;
 }
@@ -491,6 +498,7 @@ textarea {
   gap: 12px;
   padding: 12px 14px;
   border: 1px solid var(--line);
+  border-radius: var(--radius);
   text-decoration: none;
   color: inherit;
 }
@@ -504,6 +512,7 @@ textarea {
 .panel {
   background: var(--card);
   border: 1px solid var(--line);
+  border-radius: var(--radius);
   padding: 22px;
 }
 
@@ -520,6 +529,7 @@ textarea {
   overflow: hidden;
   aspect-ratio: 16 / 11;
   background: var(--ink);
+  border-radius: var(--radius);
 }
 
 .property-photo img {

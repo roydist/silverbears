@@ -169,10 +169,16 @@ assert "sbCardLine" in site_js
 assert "property.photo" not in site_js
 
 css = (DOCS / "css" / "styles.css").read_text()
-assert "#f4f5f6" in css.lower() or "#F4F5F6" in css
-assert "#1c1e21" in css.lower() or "#1C1E21" in css
-assert "#1f4d3a" in css.lower() or "#1F4D3A" in css
+assert "#f4f5f6" in css.lower()
+assert "#1c1e21" in css.lower()
+assert "#1b4a3a" in css.lower()
+assert "#1f4d3a" not in css.lower()
+assert "Fraunces" not in css
+assert "Figtree" not in css
 assert "DM Sans" in css
+assert "--radius: 3px" in css
+assert "border-radius: 18px" not in css
+assert "Segoe UI" not in css
 
 assert (DOCS / "assets" / "hero.jpg").exists()
 assert (DOCS / ".nojekyll").exists()
