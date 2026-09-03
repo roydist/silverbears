@@ -100,19 +100,23 @@ assert "Your investment is our investment." not in home
 assert "Connecting communities" not in home
 assert "Family-owned" not in home
 assert "4 / 13,466 SF" in home
-assert "5 / 323,652 SF" in home
+assert "5 outlots" in home
+assert "5 / 323,652 SF" not in home
+assert "5 outlots available" not in home
 assert "4 / 42,680 SF" in home
 assert home.index("Waynetowne Plaza") < home.index("The Highlands") < home.index("Cedar Crest")
 assert "hero-photo" in home
 assert "hero-overlay" in home
 assert "18" in home and "centers with space" in home
 assert 'id="about"' not in home
-assert "assets/properties/" not in home
-assert "card-visual" not in home
 assert "founded" not in home.lower()
 assert "international" not in home.lower()
 assert "global" not in home.lower()
 featured = home.split('class="grid grid-featured"', 1)[1].split("</section>", 1)[0]
+waynetowne_end = featured.find("</article>", featured.find("Waynetowne"))
+waynetowne_card = featured[featured.find("Waynetowne"):waynetowne_end]
+assert "card-visual" not in waynetowne_card
+assert "<img" not in waynetowne_card
 featured_names = ["Waynetowne Plaza", "The Highlands", "Cedar Crest"]
 for name in featured_names:
     assert name in featured, f"featured missing {name}"
@@ -207,8 +211,13 @@ not_found = (DOCS / "404.html").read_text()
 assert "Page not found." in not_found
 assert "That page is not here." not in not_found
 
-highlands_card = featured[featured.find("The Highlands"):featured.find("Cedar Crest")]
-assert "5 / 323,652 SF" in highlands_card
+highlands_start = home.rfind("<article", 0, home.find("the-highlands"))
+highlands_end = home.find("</article>", highlands_start) + len("</article>")
+highlands_card = home[highlands_start:highlands_end]
+assert "5 outlots" in highlands_card
+assert "card-visual" in highlands_card
+assert "323,652" not in highlands_card
+assert "5 / 323,652 SF" not in highlands_card
 
 css = (DOCS / "css" / "styles.css").read_text()
 assert "#f4f5f6" in css.lower()

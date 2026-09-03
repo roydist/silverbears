@@ -76,6 +76,12 @@ function sbAvailability(property) {
 
 function sbCardLine(property) {
   if (!property.availableSpaces) return "Fully leased";
+  var spaces = property.spaces || [];
+  var outlots = spaces.filter(sbIsOutlot);
+  var suites = spaces.filter(function (s) { return !sbIsOutlot(s); });
+  if (outlots.length && !suites.length) {
+    return outlots.length === 1 ? "1 outlot" : outlots.length + " outlots";
+  }
   return property.availableSpaces + " / " + sbFormatNumber(property.availableSf) + " SF";
 }
 

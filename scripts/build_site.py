@@ -62,6 +62,10 @@ def availability(p: dict) -> str:
 def card_line(p: dict) -> str:
     if not p["availableSpaces"]:
         return "Fully leased"
+    outlots, suites = split_listings(p)
+    if outlots and not suites:
+        n = len(outlots)
+        return "1 outlot" if n == 1 else f"{n} outlots"
     return f"{p['availableSpaces']} / {fmt_num(p['availableSf'])} SF"
 
 
@@ -175,12 +179,28 @@ def property_select(selected: str = "") -> str:
     return "\n".join(opts)
 
 
-def card_html(p: dict) -> str:
+def card_html(p: dict, show_photo: bool = False) -> str:
     name = escape(p["name"])
     city = escape(p["city"])
     href = f'ROOT/properties/{escape(p["id"])}/'
+    if show_photo and p.get("photo"):
+        photo_html = (
+            f'<a class="card-visual" href="{href}">'
+            f'<img src="ROOT/{escape(p["photo"])}" alt="{name}" width="800" height="500" loading="lazy">'
+            f"</a>"
+        )
+    elif show_photo:
+        photo_html = (
+            f'<a class="card-visual card-visual--type" href="{href}">'
+            f'<span class="mono-state">{escape(p["state"])}</span>'
+            f'<span class="mono-city">{city}</span>'
+            f"</a>"
+        )
+    else:
+        photo_html = ""
     return (
         f'<article class="property-card">'
+        f"{photo_html}"
         f"<h3><a href=\"{href}\">{name}</a></h3>"
         f'<p class="card-meta">{escape(card_line(p))}</p>'
         f'<p class="place">{city}</p>'
@@ -189,9 +209,15 @@ def card_html(p: dict) -> str:
     )
 
 
+PHOTO_CARD_IDS = {"the-highlands"}
+
+
 def featured_cards() -> str:
     by_slug = {p["id"]: p for p in PROPERTIES}
-    return "\n      ".join(card_html(by_slug[pid]) for pid in FEATURED_IDS)
+    return "\n      ".join(
+        card_html(by_slug[pid], show_photo=(pid in PHOTO_CARD_IDS))
+        for pid in FEATURED_IDS
+    )
 
 
 def property_content(p: dict) -> str:
