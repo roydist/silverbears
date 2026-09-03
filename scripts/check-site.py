@@ -103,7 +103,10 @@ assert "4 / 13,466 SF" in home
 assert "5 outlots" in home
 assert "5 / 323,652 SF" not in home
 assert "5 outlots available" not in home
-assert "4 / 42,680 SF" in home
+assert "3 / 38,480 SF + 1 outlot" in home
+
+# Regression: The Highlands must never show aggregated outlot SF
+assert "323,652 SF" not in home, "The Highlands card must not aggregate outlot acreage as SF"
 assert home.index("Waynetowne Plaza") < home.index("The Highlands") < home.index("Cedar Crest")
 assert "hero-photo" in home
 assert "hero-overlay" in home
