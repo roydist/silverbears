@@ -1,6 +1,6 @@
 # Silver Bears Real Estate
 
-Static marketing site for [Silver Bears Real Estate](https://silverbears.com) — family-owned shopping-center leasing and property management. Built as a small GitHub Pages MVP, not WordPress.
+Static marketing site for [Silver Bears Real Estate](https://silverbears.com) — shopping-center leasing and property management. Built as a small GitHub Pages MVP, not WordPress.
 
 **Live URL (GitHub Pages):** [https://roydist.github.io/silverbears/](https://roydist.github.io/silverbears/)
 
@@ -8,7 +8,7 @@ Live on GitHub Pages from `main` via the **Deploy GitHub Pages** workflow.
 
 ## Pages
 
-- **Home** — full-bleed plaza hero (one line of type), a short proof strip from the 24-center list, every center that actually has space, then the three lease steps
+- **Home** — full-bleed plaza hero, owner-operator positioning, three featured centers, then the three lease steps
 - **Properties** — full list, defaulting to centers with space
 - **How to lease** — browse → inquire → credit check / leasing team, plus the three application PDFs
 - **Contact** — leasing and office contacts, inquiry form, maintenance report as a secondary path

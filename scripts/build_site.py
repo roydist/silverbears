@@ -60,9 +60,7 @@ def availability(p: dict) -> str:
 
 
 def card_line(p: dict) -> str:
-    if not p["availableSpaces"]:
-        return "Fully leased"
-    return f"{p['availableSpaces']} / {fmt_num(p['availableSf'])} SF"
+    return availability(p)
 
 
 FEATURED_IDS = ("waynetowne-plaza", "the-highlands", "cedar-crest")
@@ -114,7 +112,7 @@ def header(active: str) -> str:
 def footer() -> str:
     return """<footer class="site-footer">
   <div class="wrap footer-row">
-    <p>Silver Bears Real Estate. Family-owned shopping-center leasing and property management.</p>
+    <p>Silver Bears Real Estate. Shopping-center leasing and property management.</p>
     <p><a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a> · <a href="tel:8883429378">888.342.9378</a></p>
     <nav>
       <a href="ROOT/privacy/">Privacy</a>
@@ -236,17 +234,21 @@ def property_content(p: dict) -> str:
         )
     if outlots and not suites:
         listing_note = (
-            f"Shopping center in {city}, {state_name}. Available listings are outlots / pad sites, "
-            "not inline shop suites. Inquire below, or go to How to lease for application forms."
+            f"{name} is a shopping center in {city}, {state_name}, in the Silver Bears portfolio. "
+            "Available listings are outlots / pad sites, not inline shop suites. "
+            "Contact the leasing team about a specific space, or see How to lease for the application forms."
         )
     elif outlots and suites:
         listing_note = (
-            f"Shopping center in {city}, {state_name}. Listings include shop suites and outlots / pad sites. "
-            "Inquire below, or go to How to lease for application forms."
+            f"{name} is a shopping center in {city}, {state_name}, in the Silver Bears portfolio. "
+            "Listings include shop suites and outlots / pad sites. "
+            "Contact the leasing team about a specific space, or see How to lease for the application forms."
         )
     else:
         listing_note = (
-            f"Shopping center in {city}, {state_name}. Inquire about a listing, or go to How to lease for application forms."
+            f"{name} is a shopping center in {city}, {state_name}, in the Silver Bears portfolio. "
+            "Current availability is listed below with square footage. "
+            "Contact the leasing team about a specific space, or see How to lease for the application forms."
         )
     map_href = ""
     if p.get("address"):
@@ -299,18 +301,25 @@ def build() -> None:
         "index.html",
         page(
             "Silver Bears Real Estate — shopping-center leasing",
-            "Family-owned commercial retail and shopping-center portfolio. Browse available space and talk to leasing.",
+            "Shopping-center leasing across 10 states. Browse current availability and contact the leasing team.",
             "home",
             f"""  <section class="hero" aria-label="Southport Plaza">
     <img class="hero-photo" src="ROOT/assets/hero.jpg" alt="Southport Plaza shopping center">
     <div class="hero-overlay"></div>
     <div class="wrap">
       <h1>Retail space in grocery-anchored centers.</h1>
+      <p class="lede">Silver Bears Real Estate owns and manages 24 community shopping centers across 10 states. We lease directly and manage what we lease.</p>
     </div>
   </section>
   <section class="proof">
     <div class="wrap">
       <p><strong>18</strong> centers with space · <strong>10</strong> states · <strong>24</strong> in the portfolio</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <p>Silver Bears Real Estate is an owner-operator of grocery-anchored and community shopping centers across the Southeast, Mid-Atlantic, and Upper Midwest. We hold our centers long term and manage them in house, so leasing decisions, maintenance, and tenant requests are handled by the organization that owns the asset.</p>
+      <p>Our centers are anchored by grocery and national retail — the everyday traffic that sustains a store rather than a destination trip. Tenants work directly with the leasing team and with a property manager assigned to their center.</p>
     </div>
   </section>
   <section class="section">
@@ -366,7 +375,7 @@ def build() -> None:
             """  <section class="page-hero">
     <div class="wrap">
       <h1>Properties</h1>
-      <p class="lede">Centers with space first. Switch the filter to see the full portfolio, including fully leased centers.</p>
+      <p class="lede">Twenty-four shopping centers across ten states, from Wisconsin to Florida. Centers with current availability appear first; switch the filter to view the full portfolio, including fully leased centers.</p>
       <form class="filters" id="property-filters" onsubmit="return false;">
         <label class="field">Search
           <input id="filter-q" type="search" placeholder="Center, city, or address" autocomplete="off">
@@ -403,12 +412,12 @@ def build() -> None:
         "how-to-lease/index.html",
         page(
             "How to lease — Silver Bears Real Estate",
-            "Three steps to lease retail space with Silver Bears: browse, inquire, then credit check with the leasing team.",
+            "Three steps from first inquiry to a signed lease. The leasing team reviews every application directly.",
             "lease",
             """  <section class="page-hero">
     <div class="wrap">
       <h1>How to lease</h1>
-      <p class="lede">Three steps: browse a center, send an inquiry, then complete a credit check with the leasing team.</p>
+      <p class="lede">Three steps from first inquiry to a signed lease. The leasing team reviews every application directly.</p>
     </div>
   </section>
   <section class="section">
@@ -418,7 +427,7 @@ def build() -> None:
           <div class="step-num">01</div>
           <div>
             <h2>Browse</h2>
-            <p>Pick a center and a suite or outlot from the listings. Confirm size and notes.</p>
+            <p>Review current availability by state, city, or size. Each center page lists the available suites or outlots with square footage and address.</p>
             <p><a class="view" href="ROOT/properties/">Open the property list</a></p>
           </div>
         </article>
@@ -426,14 +435,14 @@ def build() -> None:
           <div class="step-num">02</div>
           <div>
             <h2>Inquire</h2>
-            <p>Email <a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a> or use the contact form. Include business name, desired size, and target open date.</p>
+            <p>Contact the leasing team with your business name, required size, intended use, and target opening date. You will receive available plans, rent parameters, and next steps.</p>
           </div>
         </article>
         <article class="step">
           <div class="step-num">03</div>
           <div>
             <h2>Credit check</h2>
-            <p>Complete the tenant package. The leasing team reviews credit and sends next steps.</p>
+            <p>Complete the tenant application package. Every applicant undergoes a financial background review covering credit history and financial standing; additional information or a security deposit may be required, and an application may be declined on the basis of that review.</p>
             <p>Jared Aberman · <a href="mailto:jared@silverbears.com">jared@silverbears.com</a> · <a href="tel:8883429378">888.342.9378</a></p>
             <p>Mary Garcia · <a href="mailto:mary@silverbears.com">mary@silverbears.com</a> · <a href="tel:6787693015">678.769.3015</a></p>
           </div>
@@ -441,13 +450,13 @@ def build() -> None:
       </div>
       <aside class="panel">
         <h2>Forms</h2>
+        <p>Download, complete, and return the three forms below to the leasing team.</p>
         <div class="forms">
           <a class="form-link" href="ROOT/assets/forms/credit-check-authorization.pdf">Credit Check Authorization <span>PDF</span></a>
           <a class="form-link" href="ROOT/assets/forms/business-background.pdf">Business Background <span>PDF</span></a>
           <a class="form-link" href="ROOT/assets/forms/personal-financial-statement.pdf">Personal Financial Statement <span>PDF</span></a>
         </div>
         <p>Email completed forms to <a href="mailto:mary@silverbears.com">mary@silverbears.com</a>.</p>
-        <p>Every applicant completes a credit and background check.</p>
       </aside>
     </div>
   </section>""",
@@ -460,12 +469,12 @@ def build() -> None:
         "contact/index.html",
         page(
             "Contact — Silver Bears Real Estate",
-            "Leasing and office contacts for Silver Bears Real Estate, plus a simple inquiry form.",
+            "Leasing inquiries, property management, and maintenance requests.",
             "contact",
             f"""  <section class="page-hero">
     <div class="wrap">
       <h1>Contact</h1>
-      <p class="lede">Space inquiries go to leasing@bearsmgmt.com. The form opens your email to that address.</p>
+      <p class="lede">Leasing inquiries, property management, and maintenance requests.</p>
     </div>
   </section>
   <section class="section">
@@ -490,7 +499,7 @@ def build() -> None:
     <div class="wrap split">
       <div class="panel">
         <h2>Leasing inquiry</h2>
-        <p class="form-note">This form opens your email to leasing@bearsmgmt.com.</p>
+        <p class="form-note">This form opens your email application addressed to the leasing team.</p>
         <form data-mailto-form data-to="leasing@bearsmgmt.com">
           <input type="hidden" name="_subject" value="Leasing inquiry from silverbears.com">
           <label class="field">Name<input name="Name" required autocomplete="name"></label>
@@ -503,7 +512,7 @@ def build() -> None:
       </div>
       <div class="panel" id="maintenance">
         <h2>Maintenance report</h2>
-        <p class="form-note">Tenants: describe the issue and pick the shopping center.</p>
+        <p class="form-note">Tenants: select your shopping center and describe the issue.</p>
         <form data-mailto-form data-to="mary@silverbears.com">
           <input type="hidden" name="_subject" value="Maintenance report">
           <label class="field">Name<input name="Name" required></label>
@@ -529,7 +538,7 @@ def build() -> None:
             """  <section class="page-hero">
     <div class="wrap legal">
       <h1>Privacy</h1>
-      <p>Inquiry and maintenance forms open your email app. They do not store messages on this site.</p>
+      <p>Inquiry and maintenance forms open your email application. This site does not store those messages.</p>
       <p>If you email us, we use your name, contact details, and message to respond to a leasing or property-management request. Application forms may include financial information, which we use to evaluate a lease — see <a href="ROOT/how-to-lease/">How to lease</a>.</p>
       <p>A longer privacy policy is at <a href="https://silverbears.com/privacy-policy/">silverbears.com/privacy-policy</a>. Questions: <a href="mailto:privacy@silverbears.com">privacy@silverbears.com</a>.</p>
     </div>
@@ -566,7 +575,7 @@ def build() -> None:
             "",
             """  <section class="page-hero">
     <div class="wrap">
-      <h1>That page is not here.</h1>
+      <h1>Page not found.</h1>
       <p class="lede">Try Home, Properties, How to lease, or Contact.</p>
       <p><a class="btn" href="ROOT/index.html">Go home</a> <a class="btn btn-ghost" href="ROOT/properties/">Properties</a></p>
     </div>
@@ -583,8 +592,8 @@ def build() -> None:
             "contact",
             """  <section class="page-hero">
     <div class="wrap">
-      <h1>Send the email to finish</h1>
-      <p class="lede">If your email app opened, send the draft to finish. If it did not, write to <a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a>.</p>
+      <h1>Send the email to complete your inquiry</h1>
+      <p class="lede">If your email application opened, send the draft to complete the inquiry. If it did not, write to <a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a>.</p>
       <p><a class="btn" href="ROOT/properties/">Back to properties</a></p>
     </div>
   </section>""",
