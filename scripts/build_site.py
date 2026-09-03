@@ -63,10 +63,16 @@ def card_line(p: dict) -> str:
     if not p["availableSpaces"]:
         return "Fully leased"
     outlots, suites = split_listings(p)
+    if suites and not outlots:
+        return f"{len(suites)} / {fmt_num(sum(int(s.get('sf') or 0) for s in suites))} SF"
     if outlots and not suites:
-        n = len(outlots)
-        return "1 outlot" if n == 1 else f"{n} outlots"
-    return f"{p['availableSpaces']} / {fmt_num(p['availableSf'])} SF"
+        return f"{len(outlots)} outlots" if len(outlots) != 1 else "1 outlot"
+    parts: list[str] = []
+    if suites:
+        parts.append(f"{len(suites)} / {fmt_num(sum(int(s.get('sf') or 0) for s in suites))} SF")
+    if outlots:
+        parts.append("1 outlot" if len(outlots) == 1 else f"{len(outlots)} outlots")
+    return " + ".join(parts)
 
 
 FEATURED_IDS = ("waynetowne-plaza", "the-highlands", "cedar-crest")
