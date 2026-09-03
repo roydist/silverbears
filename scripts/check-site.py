@@ -44,6 +44,9 @@ forbidden = [
     "Connecting communities through exceptional shopping experience.",
     "Your investment is our investment.",
     "family-owned owner and manager",
+    "Family-owned",
+    "family owned",
+    "family-owned",
     "There is no separate About page",
     "We do not pad this site",
     "dummy lot",
@@ -93,11 +96,19 @@ for name in ("index.html", "properties/index.html", "how-to-lease/index.html", "
 home = (DOCS / "index.html").read_text()
 assert home.count("<h1>") == 1
 assert "Retail space in grocery-anchored centers." in home
+assert "Silver Bears Real Estate owns and manages 24 community shopping centers across 10 states." in home
+assert "We lease directly and manage what we lease." in home
+assert "owner-operator of grocery-anchored and community shopping centers" in home
+assert "Southeast, Mid-Atlantic, and Upper Midwest" in home
 assert "Your investment is our investment." not in home
 assert "Connecting communities" not in home
-assert "4 / 13,466 SF" in home
-assert "5 / 323,652 SF" in home
-assert "4 / 42,680 SF" in home
+assert "Family-owned" not in home
+assert "4 spaces · 13,466 SF" in home
+assert "5 outlots" in home
+assert "5 / 323,652 SF" not in home
+assert "323,652" not in home
+assert "3 spaces · 38,480 SF" in home
+assert "4 / 42,680 SF" not in home
 assert home.index("Waynetowne Plaza") < home.index("The Highlands") < home.index("Cedar Crest")
 assert "hero-photo" in home
 assert "hero-overlay" in home
@@ -105,6 +116,9 @@ assert "18" in home and "centers with space" in home
 assert 'id="about"' not in home
 assert "assets/properties/" not in home
 assert "card-visual" not in home
+assert "founded" not in home.lower()
+assert "international" not in home.lower()
+assert "global" not in home.lower()
 featured = home.split('class="grid grid-featured"', 1)[1].split("</section>", 1)[0]
 featured_names = ["Waynetowne Plaza", "The Highlands", "Cedar Crest"]
 for name in featured_names:
@@ -122,9 +136,15 @@ assert lease.count('class="step"') == 3
 assert "Browse" in lease
 assert "Inquire" in lease
 assert "Credit check" in lease
+assert "Three steps from first inquiry to a signed lease." in lease
+assert "Review current availability by state, city, or size." in lease
+assert "Contact the leasing team with your business name, required size, intended use, and target opening date." in lease
+assert "Every applicant undergoes a financial background review" in lease
+assert "Download, complete, and return the three forms below to the leasing team." in lease
+assert "Jared Aberman" in lease
+assert "Mary Garcia" in lease
 assert "Five steps" not in lease
 assert "Credit Check Authorization" in lease
-assert "Every applicant completes a credit and background check." in lease
 assert "Not Available" not in lease
 assert "public upload" not in lease
 assert "WordPress" not in lease
@@ -132,14 +152,22 @@ assert "WordPress" not in lease
 contact = (DOCS / "contact/index.html").read_text()
 assert "I-Southport Plaza" in contact
 assert "The Village Shoppes of Madison" in contact
-assert "This form opens your email to leasing@bearsmgmt.com." in contact
-assert "Tenants: describe the issue and pick the shopping center." in contact
+assert "Leasing inquiries, property management, and maintenance requests." in contact
+assert "This form opens your email application addressed to the leasing team." in contact
+assert "Tenants: select your shopping center and describe the issue." in contact
+assert "P.O. Box #811240" in contact
+assert "Boca Raton, FL 33481" in contact
+assert "888.342.9378" in contact
+assert "678.714.7893" in contact
+assert "Jared Aberman" in contact
+assert "Mary Garcia" in contact
 assert "Not Available" not in contact
 assert "Lot #" not in contact
 assert "dummy" not in contact.lower()
 assert "not in the header" not in contact
 
 highlands = (DOCS / "properties" / "the-highlands" / "index.html").read_text()
+assert "The Highlands is a shopping center in Bristol, Virginia, in the Silver Bears portfolio." in highlands
 assert "5 outlots available" in highlands
 assert "323,652" not in highlands
 assert "50,529" in highlands
@@ -169,7 +197,29 @@ assert "badge" not in site_js
 assert ">View</a>" in site_js
 assert 'availability.value = "available"' in site_js
 assert "sbCardLine" in site_js
+assert "sbIsOutlot" in site_js
+assert "outlots available" in site_js
+assert "availableSpaces + \" / \"" not in site_js
 assert "property.photo" not in site_js
+
+footer = "Silver Bears Real Estate. Shopping-center leasing and property management."
+for name in ("index.html", "properties/index.html", "how-to-lease/index.html", "contact/index.html", "privacy/index.html", "terms/index.html", "404.html", "thanks.html"):
+    text = (DOCS / name).read_text()
+    assert footer in text, f"{name} missing formal footer"
+    assert "Family-owned" not in text
+    assert "family-owned" not in text
+
+properties_index = (DOCS / "properties" / "index.html").read_text()
+assert "Twenty-four shopping centers across ten states, from Wisconsin to Florida." in properties_index
+
+not_found = (DOCS / "404.html").read_text()
+assert "Page not found." in not_found
+assert "That page is not here." not in not_found
+
+highlands_card = featured[featured.find("The Highlands"):featured.find("Cedar Crest")]
+assert "5 outlots" in highlands_card
+assert "323,652" not in highlands_card
+assert "spaces" not in highlands_card
 
 css = (DOCS / "css" / "styles.css").read_text()
 assert "#f4f5f6" in css.lower()

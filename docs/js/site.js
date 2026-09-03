@@ -51,9 +51,31 @@ function sbFormatNumber(n) {
   return Number(n).toLocaleString("en-US");
 }
 
-function sbCardLine(property) {
+function sbIsOutlot(space) {
+  var sid = String((space && space.id) || "").replace(/^#/, "").toUpperCase();
+  var note = String((space && space.note) || "").toLowerCase();
+  return note.indexOf("outlot") !== -1 || sid.indexOf("OP") === 0;
+}
+
+function sbAvailability(property) {
   if (!property.availableSpaces) return "Fully leased";
-  return property.availableSpaces + " / " + sbFormatNumber(property.availableSf) + " SF";
+  var spaces = property.spaces || [];
+  var outlots = spaces.filter(sbIsOutlot);
+  var suites = spaces.filter(function (space) { return !sbIsOutlot(space); });
+  var parts = [];
+  if (suites.length) {
+    var sf = suites.reduce(function (sum, space) { return sum + (Number(space.sf) || 0); }, 0);
+    var label = suites.length === 1 ? "1 space" : suites.length + " spaces";
+    parts.push(label + " · " + sbFormatNumber(sf) + " SF");
+  }
+  if (outlots.length) {
+    parts.push(outlots.length === 1 ? "1 outlot available" : outlots.length + " outlots available");
+  }
+  return parts.length ? parts.join(" · ") : "Fully leased";
+}
+
+function sbCardLine(property) {
+  return sbAvailability(property);
 }
 
 function sbCard(property) {

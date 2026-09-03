@@ -243,6 +243,12 @@ main {
   max-width: 16ch;
 }
 
+.hero .lede {
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 38rem;
+  margin: 16px 0 0;
+}
+
 .proof {
   border-bottom: 1px solid var(--line);
   padding: 18px 0;
