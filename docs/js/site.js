@@ -75,7 +75,8 @@ function sbAvailability(property) {
 }
 
 function sbCardLine(property) {
-  return sbAvailability(property);
+  if (!property.availableSpaces) return "Fully leased";
+  return property.availableSpaces + " / " + sbFormatNumber(property.availableSf) + " SF";
 }
 
 function sbCard(property) {

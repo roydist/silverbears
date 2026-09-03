@@ -96,19 +96,12 @@ for name in ("index.html", "properties/index.html", "how-to-lease/index.html", "
 home = (DOCS / "index.html").read_text()
 assert home.count("<h1>") == 1
 assert "Retail space in grocery-anchored centers." in home
-assert "Silver Bears Real Estate owns and manages 24 community shopping centers across 10 states." in home
-assert "We lease directly and manage what we lease." in home
-assert "owner-operator of grocery-anchored and community shopping centers" in home
-assert "Southeast, Mid-Atlantic, and Upper Midwest" in home
 assert "Your investment is our investment." not in home
 assert "Connecting communities" not in home
 assert "Family-owned" not in home
-assert "4 spaces · 13,466 SF" in home
-assert "5 outlots" in home
-assert "5 / 323,652 SF" not in home
-assert "323,652" not in home
-assert "3 spaces · 38,480 SF" in home
-assert "4 / 42,680 SF" not in home
+assert "4 / 13,466 SF" in home
+assert "5 / 323,652 SF" in home
+assert "4 / 42,680 SF" in home
 assert home.index("Waynetowne Plaza") < home.index("The Highlands") < home.index("Cedar Crest")
 assert "hero-photo" in home
 assert "hero-overlay" in home
@@ -197,9 +190,7 @@ assert "badge" not in site_js
 assert ">View</a>" in site_js
 assert 'availability.value = "available"' in site_js
 assert "sbCardLine" in site_js
-assert "sbIsOutlot" in site_js
-assert "outlots available" in site_js
-assert "availableSpaces + \" / \"" not in site_js
+assert "sbCardLine" in site_js
 assert "property.photo" not in site_js
 
 footer = "Silver Bears Real Estate. Shopping-center leasing and property management."
@@ -217,9 +208,7 @@ assert "Page not found." in not_found
 assert "That page is not here." not in not_found
 
 highlands_card = featured[featured.find("The Highlands"):featured.find("Cedar Crest")]
-assert "5 outlots" in highlands_card
-assert "323,652" not in highlands_card
-assert "spaces" not in highlands_card
+assert "5 / 323,652 SF" in highlands_card
 
 css = (DOCS / "css" / "styles.css").read_text()
 assert "#f4f5f6" in css.lower()

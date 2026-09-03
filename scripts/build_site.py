@@ -60,7 +60,9 @@ def availability(p: dict) -> str:
 
 
 def card_line(p: dict) -> str:
-    return availability(p)
+    if not p["availableSpaces"]:
+        return "Fully leased"
+    return f"{p['availableSpaces']} / {fmt_num(p['availableSf'])} SF"
 
 
 FEATURED_IDS = ("waynetowne-plaza", "the-highlands", "cedar-crest")
@@ -308,18 +310,11 @@ def build() -> None:
     <div class="hero-overlay"></div>
     <div class="wrap">
       <h1>Retail space in grocery-anchored centers.</h1>
-      <p class="lede">Silver Bears Real Estate owns and manages 24 community shopping centers across 10 states. We lease directly and manage what we lease.</p>
     </div>
   </section>
   <section class="proof">
     <div class="wrap">
       <p><strong>18</strong> centers with space · <strong>10</strong> states · <strong>24</strong> in the portfolio</p>
-    </div>
-  </section>
-  <section class="section">
-    <div class="wrap">
-      <p>Silver Bears Real Estate is an owner-operator of grocery-anchored and community shopping centers across the Southeast, Mid-Atlantic, and Upper Midwest. We hold our centers long term and manage them in house, so leasing decisions, maintenance, and tenant requests are handled by the organization that owns the asset.</p>
-      <p>Our centers are anchored by grocery and national retail — the everyday traffic that sustains a store rather than a destination trip. Tenants work directly with the leasing team and with a property manager assigned to their center.</p>
     </div>
   </section>
   <section class="section">
