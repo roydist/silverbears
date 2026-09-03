@@ -4,13 +4,7 @@ Static marketing site for [Silver Bears Real Estate](https://silverbears.com) �
 
 **Live URL (GitHub Pages):** [https://roydist.github.io/silverbears/](https://roydist.github.io/silverbears/)
 
-The files are on `main` (after merge) and on the `gh-pages` branch. A repo admin still needs to turn Pages on once. The GitHub token used here cannot create a Pages site:
-
-1. Open **Settings → Pages**
-2. **Build and deployment → Source:** Deploy from a branch
-3. **Branch:** `gh-pages` / folder `/ (root)` — Save
-
-Or: Source **GitHub Actions**, then re-run **Deploy GitHub Pages** on `main`.
+Live on GitHub Pages from `main` via the **Deploy GitHub Pages** workflow.
 
 ## Pages
 
