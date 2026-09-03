@@ -8,7 +8,7 @@
   <link rel="icon" href="../../assets/brand/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/styles.css">
 </head>
 <body>
@@ -22,16 +22,13 @@
     <nav class="nav" aria-label="Primary">
       <a href="../../index.html">Home</a><a href="../../properties/" class="is-active">Properties</a><a href="../../how-to-lease/">How to lease</a><a href="../../contact/">Contact</a>
     </nav>
-    <div class="header-cta">
-      <a class="btn btn-primary btn-small" href="../../properties/">Find space</a>
-      <button class="nav-toggle" type="button" aria-label="Open menu"><span></span></button>
-    </div>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span></button>
   </div>
 </header>
 <main id="main">
   <div class="wrap">
     <div class="page-hero">
-      <p class="kicker"><a href="../../properties/">Properties</a> / North Carolina</p>
+      <p class="muted"><a href="../../properties/">Properties</a> / North Carolina</p>
       <h1>Berne Square</h1>
       <p class="lede">New Bern, NC · 2604-2686 MLK Blvd, New Bern, NC 28562</p>
     </div>
@@ -39,18 +36,18 @@
       <div class="property-photo card-visual"><img src="../../assets/properties/berne-square.jpg" alt="Berne Square"></div>
       <div>
         <p>2 spaces · 25,720 SF.</p>
-        <p>Family-owned shopping center in New Bern, North Carolina. Inquire about a suite that is listed as available, or go to How to lease for application forms.</p>
+        <p>Shopping center in New Bern, North Carolina. Inquire about a listing, or go to How to lease for application forms.</p>
         <p><a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=2604-2686%20MLK%20Blvd%2C%20New%20Bern%2C%20NC%2028562" rel="noopener">Get directions</a></p>
-        <p><a class="btn btn-primary" href="#inquire">Inquire about this center</a></p>
+        <p><a class="btn" href="#inquire">Inquire about this center</a></p>
       </div>
     </div>
     <div class="section">
-      <h2>Available space</h2><p>2 spaces · 25,720 SF.</p><p>These are the suites currently listed as open. There is no picker for spaces that are not for lease.</p><table class='spaces-table'><thead><tr><th>Suite</th><th>Size</th></tr></thead><tbody><tr><td>#2650</td><td>3,000 SF</td></tr><tr><td>#2670</td><td>22,720 SF</td></tr></tbody></table>
+      <h2>Available space</h2><p>2 spaces · 25,720 SF.</p><table class='spaces-table'><thead><tr><th>Suite</th><th>Size</th></tr></thead><tbody><tr><td>#2650</td><td>3,000 SF</td></tr><tr><td>#2670</td><td>22,720 SF</td></tr></tbody></table>
     </div>
     <div class="section" id="inquire">
       <div class="panel">
         <h2>Inquire about Berne Square</h2>
-        <p class="form-note">Opens your email to leasing@bearsmgmt.com. Nothing is stored on this website.</p>
+        <p class="form-note">Opens your email to leasing@bearsmgmt.com.</p>
         <form data-mailto-form data-to="leasing@bearsmgmt.com">
           <input type="hidden" name="_subject" value="Leasing inquiry: Berne Square">
           <label class="field">Name<input name="Name" required></label>
@@ -58,40 +55,20 @@
           <label class="field">Phone<input type="tel" name="Phone"></label>
           <label class="field">Business type<input name="Business type"></label>
           <label class="field">Message<textarea name="Message" required>I am interested in Berne Square in New Bern, NC.</textarea></label>
-          <p><button class="btn btn-primary" type="submit">Send inquiry</button> <a class="btn btn-ghost" href="../../how-to-lease/">How to lease</a></p>
+          <p><button class="btn" type="submit">Send inquiry</button> <a class="btn btn-ghost" href="../../how-to-lease/">How to lease</a></p>
         </form>
       </div>
     </div>
   </div>
 </main>
 <footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <h2>Silver Bears Real Estate</h2>
-        <p>Family-owned commercial retail and shopping-center portfolio. Leasing and property management.</p>
-        <p>P.O. Box #811240<br>Boca Raton, FL 33481</p>
-      </div>
-      <div>
-        <h2>Explore</h2>
-        <ul>
-          <li><a href="../../index.html">Home</a></li>
-          <li><a href="../../properties/">Properties</a></li>
-          <li><a href="../../how-to-lease/">How to lease</a></li>
-          <li><a href="../../contact/">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Leasing inquiries</h2>
-        <p><a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a><br>
-        <a href="tel:8883429378">888.342.9378</a> (toll free)</p>
-        <p class="maintenance-link"><a href="../../contact/#maintenance">Report a maintenance issue</a></p>
-      </div>
-    </div>
-    <div class="subfooter">
-      <span>&copy; <span data-year></span> Silver Bears Real Estate</span>
-      <span><a href="../../privacy/">Privacy</a> · <a href="../../terms/">Terms</a></span>
-    </div>
+  <div class="wrap footer-row">
+    <p>Silver Bears Real Estate. Family-owned shopping-center leasing and property management.</p>
+    <p><a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a> · <a href="tel:8883429378">888.342.9378</a></p>
+    <nav>
+      <a href="../../privacy/">Privacy</a>
+      <a href="../../terms/">Terms</a>
+    </nav>
   </div>
 </footer>
 

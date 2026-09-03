@@ -531,4 +531,3 @@ window.SB_PROPERTIES = [
     ]
   }
 ];
-window.SB_FEATURED = ['the-highlands','southport-plaza','cedar-crest','macduff-crossing'];

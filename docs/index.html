@@ -8,7 +8,7 @@
   <link rel="icon" href="assets/brand/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -22,92 +22,76 @@
     <nav class="nav" aria-label="Primary">
       <a href="index.html" class="is-active">Home</a><a href="properties/">Properties</a><a href="how-to-lease/">How to lease</a><a href="contact/">Contact</a>
     </nav>
-    <div class="header-cta">
-      <a class="btn btn-primary btn-small" href="properties/">Find space</a>
-      <button class="nav-toggle" type="button" aria-label="Open menu"><span></span></button>
-    </div>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span></button>
   </div>
 </header>
 <main id="main">
-  <section class="hero">
+  <section class="hero" aria-label="Southport Plaza">
+    <img class="hero-photo" src="assets/hero.jpg" alt="Southport Plaza shopping center">
+    <div class="hero-overlay"></div>
     <div class="wrap">
-      <p class="kicker">Your investment is our investment.</p>
-      <h1>Retail space in real shopping centers.</h1>
-      <p class="lede">Connecting communities through exceptional shopping experience. We are a family-owned owner and manager of community shopping centers — leasing space and taking care of the centers day to day.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="properties/">Browse properties</a>
-        <a class="btn btn-ghost" href="how-to-lease/">How to lease</a>
-      </div>
-      <div class="stats" aria-label="Portfolio snapshot">
-        <div class="stat"><b>24</b><span>shopping centers in this portfolio</span></div>
-        <div class="stat"><b>10</b><span>states, from Wisconsin to Florida</span></div>
-        <div class="stat"><b>18</b><span>centers with space available now</span></div>
-      </div>
+      <h1>Retail space in grocery-anchored centers.</h1>
+    </div>
+  </section>
+  <section class="proof">
+    <div class="wrap">
+      <p><strong>18</strong> centers with space · <strong>10</strong> states · <strong>24</strong> in the portfolio</p>
     </div>
   </section>
   <section class="section">
     <div class="wrap">
       <div class="section-head">
-        <div>
-          <p class="kicker">Featured</p>
-          <h2>Centers with space to lease</h2>
-        </div>
-        <a href="properties/">See all properties</a>
+        <h2>Featured centers</h2>
+        <a class="view" href="properties/">All properties</a>
       </div>
-      <div class="grid" data-featured></div>
+      <div class="grid grid-featured">
+      <article class="property-card"><h3><a href="properties/waynetowne-plaza/">Waynetowne Plaza</a></h3><p class="card-meta">4 / 13,466 SF</p><p class="place">Huber Heights</p><a class="view" href="properties/waynetowne-plaza/">View</a></article>
+      <article class="property-card"><h3><a href="properties/the-highlands/">The Highlands</a></h3><p class="card-meta">5 / 323,652 SF</p><p class="place">Bristol</p><a class="view" href="properties/the-highlands/">View</a></article>
+      <article class="property-card"><h3><a href="properties/cedar-crest/">Cedar Crest</a></h3><p class="card-meta">4 / 42,680 SF</p><p class="place">Lebanon</p><a class="view" href="properties/cedar-crest/">View</a></article>
+      </div>
     </div>
   </section>
-  <section class="section" id="about">
-    <div class="wrap split">
-      <div>
-        <p class="kicker">About us</p>
-        <h2>A family-owned retail portfolio</h2>
-        <p>Silver Bears Real Estate leases and manages shopping centers for tenants who want to serve local shoppers. There is no separate About page — this is it. Browse the list, pick a center, then talk to leasing.</p>
-        <p>We do not pad this site with invented square-footage totals or founding-year claims. The properties and available space you see here match the current public portfolio.</p>
-        <p><a class="btn btn-primary" href="properties/">Find space</a> <a class="btn btn-ghost" href="contact/">Talk to leasing</a></p>
+  <section class="section">
+    <div class="wrap">
+      <h2>How to lease</h2>
+      <div class="steps">
+        <article class="step">
+          <div class="step-num">01</div>
+          <div>
+            <h3>Browse</h3>
+            <p>Open a center and pick a suite or outlot.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-num">02</div>
+          <div>
+            <h3>Inquire</h3>
+            <p>Email leasing or use the contact form. Name the center and listing if you know it.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-num">03</div>
+          <div>
+            <h3>Credit check</h3>
+            <p>Send the tenant package. The leasing team reviews credit and follows up.</p>
+          </div>
+        </article>
       </div>
-      <div class="panel">
-        <h2>How a lease starts</h2>
-        <p>1. Browse properties and filter by state or size.</p>
-        <p>2. Pick a center and note the suites that are actually open.</p>
-        <p>3. Send an inquiry or download the application forms.</p>
-        <p><a href="how-to-lease/">Read the full process</a></p>
-      </div>
+      <p><a class="view" href="how-to-lease/">The three steps, with forms</a></p>
     </div>
   </section>
 </main>
 <footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <h2>Silver Bears Real Estate</h2>
-        <p>Family-owned commercial retail and shopping-center portfolio. Leasing and property management.</p>
-        <p>P.O. Box #811240<br>Boca Raton, FL 33481</p>
-      </div>
-      <div>
-        <h2>Explore</h2>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="properties/">Properties</a></li>
-          <li><a href="how-to-lease/">How to lease</a></li>
-          <li><a href="contact/">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Leasing inquiries</h2>
-        <p><a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a><br>
-        <a href="tel:8883429378">888.342.9378</a> (toll free)</p>
-        <p class="maintenance-link"><a href="contact/#maintenance">Report a maintenance issue</a></p>
-      </div>
-    </div>
-    <div class="subfooter">
-      <span>&copy; <span data-year></span> Silver Bears Real Estate</span>
-      <span><a href="privacy/">Privacy</a> · <a href="terms/">Terms</a></span>
-    </div>
+  <div class="wrap footer-row">
+    <p>Silver Bears Real Estate. Family-owned shopping-center leasing and property management.</p>
+    <p><a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a> · <a href="tel:8883429378">888.342.9378</a></p>
+    <nav>
+      <a href="privacy/">Privacy</a>
+      <a href="terms/">Terms</a>
+    </nav>
   </div>
 </footer>
 
-<script src="js/properties.js"></script>
 <script src="js/site.js"></script>
 </body>
 </html>

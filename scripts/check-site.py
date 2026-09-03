@@ -41,18 +41,37 @@ forbidden = [
     "Lot #",
     "0 Properties Found",
     "0 properties found",
+    "Connecting communities through exceptional shopping experience.",
+    "family-owned owner and manager",
+    "There is no separate About page",
+    "We do not pad this site",
+    "dummy lot",
+    "dummy lot number",
+    "state mega-menu",
+    "tenant-category maze",
+    "This is not in the header",
+    "not in the main navigation",
+    "not in the header or the mobile menu",
+    "not a public upload",
+    "The old leasing page was a wall of legal text",
+    "Retail space in real shopping centers.",
+    "Choose a real shopping center",
 ]
 site_text = "\n".join(path.read_text() for path in DOCS.rglob("*.html"))
 for needle in forbidden:
     assert needle not in site_text, f"leftover copy found: {needle}"
+
+assert "family=DM+Sans" in site_text
+assert "Fraunces" not in site_text
+assert "Figtree" not in site_text
 
 for p in properties:
     index = DOCS / "properties" / p["id"] / "index.html"
     assert index.exists(), f"missing center page {p['id']}"
     text = index.read_text()
     assert p["name"] in text
-    assert "Find space" in text
     assert "How to lease" in text
+    assert "Find space" not in text
 
 aliases = {
     "medison": "madison",
@@ -65,23 +84,97 @@ for alias, canonical in aliases.items():
 
 for name in ("index.html", "properties/index.html", "how-to-lease/index.html", "contact/index.html"):
     text = (DOCS / name).read_text()
-    for label in ("Home", "Properties", "How to lease", "Contact", "Find space"):
+    for label in ("Home", "Properties", "How to lease", "Contact"):
         assert label in text, f"{name} missing {label}"
+    assert "Find space" not in text, f"{name} still has Find space chrome"
+    assert "family=DM+Sans" in text
 
 home = (DOCS / "index.html").read_text()
-assert "Your investment is our investment." in home
-assert 'id="about"' in home
+assert home.count("<h1>") == 1
+assert "Retail space in grocery-anchored centers." in home
+assert "4 / 13,466 SF" in home
+assert "5 / 323,652 SF" in home
+assert "4 / 42,680 SF" in home
+assert home.index("Waynetowne Plaza") < home.index("The Highlands") < home.index("Cedar Crest")
+assert "hero-photo" in home
+assert "hero-overlay" in home
+assert "18" in home and "centers with space" in home
+assert 'id="about"' not in home
+assert "assets/properties/" not in home
+assert "card-visual" not in home
+featured = home.split('class="grid grid-featured"', 1)[1].split("</section>", 1)[0]
+featured_names = ["Waynetowne Plaza", "The Highlands", "Cedar Crest"]
+for name in featured_names:
+    assert name in featured, f"featured missing {name}"
+for p in available:
+    if p["name"] not in featured_names:
+        assert p["name"] not in featured, f"extra center on Home: {p['name']}"
+for p in leased:
+    assert p["name"] not in featured, f"zero-space center on Home: {p['name']}"
+assert featured.count("property-card") == 3
+assert "badge" not in home
 
 lease = (DOCS / "how-to-lease/index.html").read_text()
-assert "Leasing inquiries" in lease
+assert lease.count('class="step"') == 3
+assert "Browse" in lease
+assert "Inquire" in lease
+assert "Credit check" in lease
+assert "Five steps" not in lease
 assert "Credit Check Authorization" in lease
+assert "Every applicant completes a credit and background check." in lease
 assert "Not Available" not in lease
+assert "public upload" not in lease
+assert "WordPress" not in lease
 
 contact = (DOCS / "contact/index.html").read_text()
 assert "I-Southport Plaza" in contact
 assert "The Village Shoppes of Madison" in contact
-assert "Report a maintenance issue" in (DOCS / "index.html").read_text()
+assert "This form opens your email to leasing@bearsmgmt.com." in contact
+assert "Tenants: describe the issue and pick the shopping center." in contact
 assert "Not Available" not in contact
 assert "Lot #" not in contact
+assert "dummy" not in contact.lower()
+assert "not in the header" not in contact
 
-print("ok: 24 unique centers, folder URLs, aliases, no leftover WordPress junk")
+highlands = (DOCS / "properties" / "the-highlands" / "index.html").read_text()
+assert "5 outlots available" in highlands
+assert "323,652" not in highlands
+assert "50,529" in highlands
+assert "84,945" in highlands
+assert "55,757" in highlands
+assert "54,885" in highlands
+assert "77,536" in highlands
+assert "pad sites" in highlands
+assert "5 spaces" not in highlands
+
+southport_outlot = (DOCS / "properties" / "i-southport-plaza" / "index.html").read_text()
+assert "1 outlot available" in southport_outlot
+assert "1 space · 3,000 SF" not in southport_outlot
+
+cedar = (DOCS / "properties" / "cedar-crest" / "index.html").read_text()
+assert "3 spaces · 38,480 SF" in cedar
+assert "1 outlot available" in cedar
+assert "4 spaces · 42,680 SF" not in cedar
+
+regency = (DOCS / "properties" / "regency-point" / "index.html").read_text()
+assert "1 space · 2,310 SF" in regency
+assert "1 outlot available" in regency
+assert "2 spaces · 7,310 SF" not in regency
+
+site_js = (DOCS / "js" / "site.js").read_text()
+assert "badge" not in site_js
+assert ">View</a>" in site_js
+assert 'availability.value = "available"' in site_js
+assert "sbCardLine" in site_js
+assert "property.photo" not in site_js
+
+css = (DOCS / "css" / "styles.css").read_text()
+assert "#f4f5f6" in css.lower() or "#F4F5F6" in css
+assert "#1c1e21" in css.lower() or "#1C1E21" in css
+assert "#1f4d3a" in css.lower() or "#1F4D3A" in css
+assert "DM Sans" in css
+
+assert (DOCS / "assets" / "hero.jpg").exists()
+assert (DOCS / ".nojekyll").exists()
+
+print("ok: type-only cards, three featured centers, designer system")

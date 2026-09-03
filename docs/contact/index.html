@@ -8,7 +8,7 @@
   <link rel="icon" href="../assets/brand/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -22,31 +22,27 @@
     <nav class="nav" aria-label="Primary">
       <a href="../index.html">Home</a><a href="../properties/">Properties</a><a href="../how-to-lease/">How to lease</a><a href="../contact/" class="is-active">Contact</a>
     </nav>
-    <div class="header-cta">
-      <a class="btn btn-primary btn-small" href="../properties/">Find space</a>
-      <button class="nav-toggle" type="button" aria-label="Open menu"><span></span></button>
-    </div>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span></button>
   </div>
 </header>
 <main id="main">
   <section class="page-hero">
     <div class="wrap">
-      <p class="kicker">Contact</p>
-      <h1>Talk to leasing</h1>
-      <p class="lede">Use the form for a space inquiry, or call. Maintenance requests are further down this page — they are not in the main navigation.</p>
+      <h1>Contact</h1>
+      <p class="lede">Space inquiries go to leasing@bearsmgmt.com. The form opens your email to that address.</p>
     </div>
   </section>
   <section class="section">
     <div class="wrap contact-grid">
-      <div class="panel contact-card">
-        <h3>Leasing inquiries</h3>
+      <div class="panel">
+        <h2>Leasing</h2>
         <p><a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a><br>
-        <a href="tel:8883429378">888.342.9378</a> (toll free)</p>
-        <p>Jared Aberman, leasing representative<br>
+        <a href="tel:8883429378">888.342.9378</a></p>
+        <p>Jared Aberman<br>
         <a href="mailto:jared@silverbears.com">jared@silverbears.com</a></p>
       </div>
-      <div class="panel contact-card">
-        <h3>Office</h3>
+      <div class="panel">
+        <h2>Office</h2>
         <p><a href="tel:6787147893">678.714.7893</a><br>Monday–Friday, 8am–5pm EST</p>
         <p>P.O. Box #811240<br>Boca Raton, FL 33481</p>
         <p>Mary Garcia, property manager<br>
@@ -58,7 +54,7 @@
     <div class="wrap split">
       <div class="panel">
         <h2>Leasing inquiry</h2>
-        <p class="form-note">Choose a real shopping center, not a dummy lot. This form opens your email app to leasing@bearsmgmt.com.</p>
+        <p class="form-note">This form opens your email to leasing@bearsmgmt.com.</p>
         <form data-mailto-form data-to="leasing@bearsmgmt.com">
           <input type="hidden" name="_subject" value="Leasing inquiry from silverbears.com">
           <label class="field">Name<input name="Name" required autocomplete="name"></label>
@@ -90,21 +86,17 @@
 <option value="Lincoln Plaza">Lincoln Plaza — Rhinelander, WI</option>
 <option value="Beckley Crossing">Beckley Crossing — Beckley, WV</option></select></label>
           <label class="field">Message<textarea name="Message" required placeholder="What kind of space are you looking for?"></textarea></label>
-          <p><button class="btn btn-primary" type="submit">Send inquiry</button></p>
+          <p><button class="btn" type="submit">Send inquiry</button></p>
         </form>
       </div>
-      <div>
-        <h2>How to lease</h2>
-        <p>If you are ready to apply, download the forms and read the background-check step first.</p>
-        <p><a class="btn btn-ghost" href="../how-to-lease/">How to lease</a></p>
-        <div class="panel" id="maintenance" style="margin-top:24px">
-          <h2>Maintenance report</h2>
-          <p>Tenants: describe the issue and pick the shopping center. This is not in the header or the mobile menu.</p>
-          <form data-mailto-form data-to="mary@silverbears.com">
-            <input type="hidden" name="_subject" value="Maintenance report">
-            <label class="field">Name<input name="Name" required></label>
-            <label class="field">Email<input type="email" name="Email" required></label>
-            <label class="field">Shopping center<select name="Shopping center" required><option value="">Choose a center</option>
+      <div class="panel" id="maintenance">
+        <h2>Maintenance report</h2>
+        <p class="form-note">Tenants: describe the issue and pick the shopping center.</p>
+        <form data-mailto-form data-to="mary@silverbears.com">
+          <input type="hidden" name="_subject" value="Maintenance report">
+          <label class="field">Name<input name="Name" required></label>
+          <label class="field">Email<input type="email" name="Email" required></label>
+          <label class="field">Shopping center<select name="Shopping center" required><option value="">Choose a center</option>
 <option value="The Village Shoppes of Madison">The Village Shoppes of Madison — Madison, AL</option>
 <option value="Sand Lake Corners">Sand Lake Corners — Orlando, FL</option>
 <option value="Townview Square">Townview Square — Zephyrhills, FL</option>
@@ -129,46 +121,24 @@
 <option value="Regency Point">Regency Point — Racine, WI</option>
 <option value="Lincoln Plaza">Lincoln Plaza — Rhinelander, WI</option>
 <option value="Beckley Crossing">Beckley Crossing — Beckley, WV</option></select></label>
-            <label class="field">What is wrong?<textarea name="Problem" required></textarea></label>
-            <p><button class="btn btn-primary" type="submit">Report issue</button></p>
-          </form>
-        </div>
+          <label class="field">What is wrong?<textarea name="Problem" required></textarea></label>
+          <p><button class="btn" type="submit">Report issue</button></p>
+        </form>
       </div>
     </div>
   </section>
 </main>
 <footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <h2>Silver Bears Real Estate</h2>
-        <p>Family-owned commercial retail and shopping-center portfolio. Leasing and property management.</p>
-        <p>P.O. Box #811240<br>Boca Raton, FL 33481</p>
-      </div>
-      <div>
-        <h2>Explore</h2>
-        <ul>
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../properties/">Properties</a></li>
-          <li><a href="../how-to-lease/">How to lease</a></li>
-          <li><a href="../contact/">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Leasing inquiries</h2>
-        <p><a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a><br>
-        <a href="tel:8883429378">888.342.9378</a> (toll free)</p>
-        <p class="maintenance-link"><a href="../contact/#maintenance">Report a maintenance issue</a></p>
-      </div>
-    </div>
-    <div class="subfooter">
-      <span>&copy; <span data-year></span> Silver Bears Real Estate</span>
-      <span><a href="../privacy/">Privacy</a> · <a href="../terms/">Terms</a></span>
-    </div>
+  <div class="wrap footer-row">
+    <p>Silver Bears Real Estate. Family-owned shopping-center leasing and property management.</p>
+    <p><a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a> · <a href="tel:8883429378">888.342.9378</a></p>
+    <nav>
+      <a href="../privacy/">Privacy</a>
+      <a href="../terms/">Terms</a>
+    </nav>
   </div>
 </footer>
 
-<script src="../js/properties.js"></script>
 <script src="../js/site.js"></script>
 </body>
 </html>
