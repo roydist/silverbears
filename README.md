@@ -16,7 +16,7 @@ Live on GitHub Pages from `main` via the **Deploy GitHub Pages** workflow.
 
 Header navigation is only Home, Properties, How to lease, and Contact. There are no leftover test fields or sample pages.
 
-Type is DM Sans. Color is off-white `#F4F5F6`, graphite `#1C1E21`, and one accent `#1F4D3A`.
+Type is DM Sans. Color is off-white `#F4F5F6`, graphite `#1C1E21`, and one forest accent `#1B4A3A`. Radius is 3px.
 
 ## Run locally
 
