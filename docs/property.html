@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting — Silver Bears</title>
+  <script>
+    (function () {
+      var id = new URLSearchParams(location.search).get('id') || '';
+      var aliases = {medison:'madison','7450-green-bay':'i-southport-plaza','sugarcreek-plaza-ll':'sugarcreek-plaza-ii'};
+      if (aliases[id]) id = aliases[id];
+      location.replace(id ? ('properties/' + encodeURIComponent(id) + '/') : 'properties/');
+    })();
+  </script>
+</head>
+<body>
+  <p><a href="properties/">Go to properties</a></p>
+</body>
+</html>
