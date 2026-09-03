@@ -51,63 +51,26 @@ function sbFormatNumber(n) {
   return Number(n).toLocaleString("en-US");
 }
 
-function sbIsOutlot(space) {
-  const id = String(space.id || "").replace(/^#/, "").toUpperCase();
-  const note = String(space.note || "").toLowerCase();
-  return note.indexOf("outlot") !== -1 || id.indexOf("OP") === 0;
-}
-
-function sbAvailabilityLabel(property) {
+function sbCardLine(property) {
   if (!property.availableSpaces) return "Fully leased";
-  const listings = property.spaces || [];
-  const outlots = listings.filter(sbIsOutlot);
-  const suites = listings.filter(function (space) { return !sbIsOutlot(space); });
-  const parts = [];
-  if (suites.length) {
-    const sf = suites.reduce(function (sum, space) { return sum + (space.sf || 0); }, 0);
-    const label = suites.length === 1 ? "1 space" : suites.length + " spaces";
-    parts.push(label + " · " + sbFormatNumber(sf) + " SF");
-  }
-  if (outlots.length) {
-    parts.push(outlots.length === 1 ? "1 outlot available" : outlots.length + " outlots available");
-  }
-  return parts.join(" · ") || "Fully leased";
+  return property.availableSpaces + " / " + sbFormatNumber(property.availableSf) + " SF";
 }
 
 function sbCard(property) {
   const href = sbHref("properties/" + encodeURIComponent(property.id) + "/");
-  const visual = property.photo
-    ? '<a class="card-visual" href="' +
-      href +
-      '"><img src="' +
-      sbHref(property.photo) +
-      '" alt="' +
-      property.name +
-      " in " +
-      property.city +
-      '" width="800" height="500" loading="lazy"></a>'
-    : '<a class="card-visual card-visual--type" href="' +
-      href +
-      '"><span class="mono-state">' +
-      property.state +
-      '</span><span class="mono-city">' +
-      property.city +
-      "</span></a>";
-
   return (
     '<article class="property-card">' +
-    visual +
-    '<div class="card-body"><h3><a href="' +
+    "<h3><a href=\"" +
     href +
     '">' +
     property.name +
-    '</a></h3><p class="place">' +
+    '</a></h3><p class="card-meta">' +
+    sbCardLine(property) +
+    '</p><p class="place">' +
     property.city +
-    '</p><p class="card-meta">' +
-    sbAvailabilityLabel(property) +
     '</p><a class="view" href="' +
     href +
-    '">View</a></div></article>'
+    '">View</a></article>'
   );
 }
 
