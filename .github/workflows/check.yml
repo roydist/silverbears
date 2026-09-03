@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Sanity check
-        run: python3 scripts/check-site.py
+        run: python3 scripts/build_site.py && python3 scripts/check-site.py

@@ -26,11 +26,24 @@ python3 -m http.server 4173 --directory docs
 
 Then open [http://127.0.0.1:4173/](http://127.0.0.1:4173/).
 
-Sanity check:
+Sanity check / regenerate HTML from property data:
 
 ```bash
+python3 scripts/build_site.py
 python3 scripts/check-site.py
 ```
+
+## URLs
+
+Center pages live at `/properties/<slug>/`, matching the old WordPress paths (for example `/properties/southport-plaza/`). Old leftover slugs redirect:
+
+- `/properties/medison/` → Madison (typo on the live site)
+- `/properties/7450-green-bay/` → I-Southport Plaza (that address is a real center; the leftover slug is not a second listing)
+- `/properties/sugarcreek-plaza-ll/` → Sugarcreek Plaza II
+- `/leasing-information/` → How to lease
+- `/forms-page/` → Contact
+
+There is no sample-page, no spreadsheet export, and no tenant-category filter.
 
 ## GitHub Pages
 
