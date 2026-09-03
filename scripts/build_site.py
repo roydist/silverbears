@@ -114,7 +114,7 @@ def header(active: str) -> str:
 def footer() -> str:
     return """<footer class="site-footer">
   <div class="wrap footer-row">
-    <p>Silver Bears Real Estate. Family-owned shopping-center leasing and property management.</p>
+    <p>Silver Bears Real Estate. Shopping-center leasing and property management.</p>
     <p><a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a> · <a href="tel:8883429378">888.342.9378</a></p>
     <nav>
       <a href="ROOT/privacy/">Privacy</a>
@@ -299,7 +299,7 @@ def build() -> None:
         "index.html",
         page(
             "Silver Bears Real Estate — shopping-center leasing",
-            "Family-owned commercial retail and shopping-center portfolio. Browse available space and talk to leasing.",
+            "Commercial retail and shopping-center portfolio. Browse available space and talk to leasing.",
             "home",
             f"""  <section class="hero" aria-label="Southport Plaza">
     <img class="hero-photo" src="ROOT/assets/hero.jpg" alt="Southport Plaza shopping center">

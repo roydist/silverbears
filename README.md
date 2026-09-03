@@ -1,6 +1,6 @@
 # Silver Bears Real Estate
 
-Static marketing site for [Silver Bears Real Estate](https://silverbears.com) — family-owned shopping-center leasing and property management. Built as a small GitHub Pages MVP, not WordPress.
+Static marketing site for [Silver Bears Real Estate](https://silverbears.com) — shopping-center leasing and property management. GitHub Pages MVP.
 
 **Live URL (GitHub Pages):** [https://roydist.github.io/silverbears/](https://roydist.github.io/silverbears/)
 
