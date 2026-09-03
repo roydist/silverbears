@@ -39,6 +39,15 @@
   }
 })();
 
+function sbHref(path) {
+  var parts = location.pathname.replace(/\/+$/, "").split("/").filter(Boolean);
+  if (parts[0] === "silverbears") parts.shift();
+  var depth = parts.length;
+  if (depth && /\.html$/i.test(parts[depth - 1])) depth -= 1;
+  var prefix = depth ? "../".repeat(depth) : "";
+  return prefix + path;
+}
+
 function sbFormatNumber(n) {
   return Number(n).toLocaleString("en-US");
 }
@@ -75,8 +84,8 @@ function sbCard(property) {
       "</span></div>";
 
   return (
-    '<a class="property-card" href="property.html?id=' +
-    encodeURIComponent(property.id) +
+    '<a class="property-card" href="' +
+    sbHref("properties/" + encodeURIComponent(property.id) + "/") +
     '">' +
     visual +
     '<div class="card-body"><div class="place">' +
