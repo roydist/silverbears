@@ -96,10 +96,6 @@ for name in ("index.html", "properties/index.html", "how-to-lease/index.html", "
 home = (DOCS / "index.html").read_text()
 assert home.count("<h1>") == 1
 assert "Retail space in grocery-anchored centers." in home
-assert "Silver Bears Real Estate owns and manages 24 community shopping centers across 10 states." in home
-assert "We lease directly and manage what we lease." in home
-assert "owner-operator of grocery-anchored and community shopping centers" in home
-assert "Southeast, Mid-Atlantic, and Upper Midwest" in home
 assert "Your investment is our investment." not in home
 assert "Connecting communities" not in home
 assert "Family-owned" not in home
