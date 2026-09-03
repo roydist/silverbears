@@ -1,20 +1,28 @@
 # Silver Bears Real Estate
 
-Static marketing site for [Silver Bears Real Estate](https://silverbears.com) — family-owned shopping-center leasing and property management. Built to replace the current WordPress site with a small, fast set of public pages.
+Static marketing site for [Silver Bears Real Estate](https://silverbears.com) — family-owned shopping-center leasing and property management. Built as a small GitHub Pages MVP, not WordPress.
 
 **Live URL (GitHub Pages):** [https://roydist.github.io/silverbears/](https://roydist.github.io/silverbears/)
 
-The files are on `main` and on the `gh-pages` branch. A repo admin still needs to turn Pages on once (Settings → Pages → deploy `gh-pages` / root). The GitHub token used here cannot create a Pages site.
+The files are on `main` (after merge) and on the `gh-pages` branch. A repo admin still needs to turn Pages on once. The GitHub token used here cannot create a Pages site:
+
+1. Open **Settings → Pages**
+2. **Build and deployment → Source:** Deploy from a branch
+3. **Branch:** `gh-pages` / folder `/ (root)` — Save
+
+Or: Source **GitHub Actions**, then re-run **Deploy GitHub Pages** on `main`.
 
 ## Pages
 
-- **Home** — who they are, featured centers, portfolio counts taken only from the 24-center list
-- **Properties** — one searchable list (state, city, availability, size). Fully leased centers stay on the list. Empty filters hide the grid instead of showing a zero-result table
-- **How to lease** — five steps, application PDFs, plain-English background check
+- **Home** — full-bleed plaza hero (one line of type), a short proof strip from the 24-center list, every center that actually has space, then the three lease steps
+- **Properties** — full list, defaulting to centers with space
+- **How to lease** — browse → inquire → credit check / leasing team, plus the three application PDFs
 - **Contact** — leasing and office contacts, inquiry form, maintenance report as a secondary path
 - **Privacy / Terms** — short placeholders, with links to the current WordPress versions
 
-Header navigation is only Home, Properties, How to lease, and Contact, plus a **Find space** button. There are no leftover test fields or sample pages.
+Header navigation is only Home, Properties, How to lease, and Contact. There are no leftover test fields or sample pages.
+
+Type is DM Sans. Color is off-white `#F4F5F6`, graphite `#1C1E21`, and one accent `#1F4D3A`.
 
 ## Run locally
 
@@ -45,23 +53,6 @@ Center pages live at `/properties/<slug>/`, matching the old WordPress paths (fo
 
 There is no sample-page, no spreadsheet export, and no tenant-category filter.
 
-## GitHub Pages
-
-The site files are ready in two places:
-
-- `docs/` on `main` (GitHub Actions workflow in `.github/workflows/pages.yml`)
-- `gh-pages` branch (same site at the branch root)
-
-This agent cannot flip **Settings → Pages** (the GitHub token is not allowed to create a Pages site). One click from a repo admin publishes https://roydist.github.io/silverbears/ :
-
-1. Open **Settings → Pages**
-2. **Build and deployment → Source:** Deploy from a branch
-3. **Branch:** `gh-pages` / folder `/ (root)` — Save
-
-Or: Source **GitHub Actions**, then re-run the “Deploy GitHub Pages” workflow on `main`.
-
-After that, center URLs look like `https://roydist.github.io/silverbears/properties/southport-plaza/`.
-
 ## Forms and PDFs
 
 Inquiry and maintenance forms open a `mailto:` draft (no backend). Application PDFs are copies of the files already published on the live WordPress site:
@@ -70,8 +61,8 @@ Inquiry and maintenance forms open a `mailto:` draft (no backend). Application P
 - `docs/assets/forms/business-background.pdf`
 - `docs/assets/forms/personal-financial-statement.pdf`
 
-Property photos in `docs/assets/properties/` are the company’s own published images from silverbears.com. Centers without a usable photo use a typographic card instead of stock photography.
+Property photos in `docs/assets/properties/` are the company’s own published images from silverbears.com. Centers without a usable photo use a typographic card instead of stock photography. The home hero uses the Southport Plaza photo.
 
 ## Data
 
-Property names, available space counts, square footage, cities, and states match the public portfolio list. Stats on the homepage (24 centers, 10 states, 18 with space) are counts of that list — not invented GLA totals or a founding year.
+Property names, available space counts, square footage, cities, and states match the public portfolio list. Stats on the homepage (18 centers with space, 10 states, 24 in the portfolio) are counts of that list — not invented GLA totals or a founding year.
