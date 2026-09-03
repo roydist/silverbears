@@ -51,4 +51,15 @@ assert "Credit Check Authorization" in lease
 assert "Business Background" in lease
 assert "Personal Financial Statement" in lease
 
+nonsense = [
+    p
+    for p in properties
+    if "xyzzy-no-center" in (p["name"] + p["city"] + p["address"]).lower()
+]
+assert nonsense == []
+
+leased_names = {p["name"] for p in leased}
+assert "Sand Lake Corners" in leased_names
+assert "Southport Plaza" not in leased_names
+
 print("ok: 24 unique centers, 18 available, 10 states, required pages present")
