@@ -51,10 +51,27 @@ function sbFormatNumber(n) {
   return Number(n).toLocaleString("en-US");
 }
 
+function sbIsOutlot(space) {
+  const id = String(space.id || "").replace(/^#/, "").toUpperCase();
+  const note = String(space.note || "").toLowerCase();
+  return note.indexOf("outlot") !== -1 || id.indexOf("OP") === 0;
+}
+
 function sbAvailabilityLabel(property) {
   if (!property.availableSpaces) return "Fully leased";
-  const spaces = property.availableSpaces === 1 ? "1 space" : property.availableSpaces + " spaces";
-  return spaces + " · " + sbFormatNumber(property.availableSf) + " SF";
+  const listings = property.spaces || [];
+  const outlots = listings.filter(sbIsOutlot);
+  const suites = listings.filter(function (space) { return !sbIsOutlot(space); });
+  const parts = [];
+  if (suites.length) {
+    const sf = suites.reduce(function (sum, space) { return sum + (space.sf || 0); }, 0);
+    const label = suites.length === 1 ? "1 space" : suites.length + " spaces";
+    parts.push(label + " · " + sbFormatNumber(sf) + " SF");
+  }
+  if (outlots.length) {
+    parts.push(outlots.length === 1 ? "1 outlot available" : outlots.length + " outlots available");
+  }
+  return parts.join(" · ") || "Fully leased";
 }
 
 function sbCard(property) {
