@@ -342,11 +342,18 @@ def build() -> None:
     <div class="hero-overlay"></div>
     <div class="wrap">
       <h1>Retail space in grocery-anchored centers.</h1>
+      <p class="lede">Silver Bears Real Estate owns and manages 24 community shopping centers across 10 states. We lease directly and manage what we lease.</p>
     </div>
   </section>
   <section class="proof">
     <div class="wrap">
       <p><strong>18</strong> centers with space · <strong>10</strong> states · <strong>24</strong> in the portfolio</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <p>Silver Bears Real Estate is an owner-operator of grocery-anchored and community shopping centers across the Southeast, Mid-Atlantic, and Upper Midwest. We hold our centers long term and manage them in house, so leasing decisions, maintenance, and tenant requests are handled by the organization that owns the asset.</p>
+      <p>Our centers are anchored by grocery and national retail — the everyday traffic that sustains a store rather than a destination trip. Tenants work directly with the leasing team and with a property manager assigned to their center.</p>
     </div>
   </section>
   <section class="section">
@@ -368,21 +375,21 @@ def build() -> None:
           <div class="step-num">01</div>
           <div>
             <h3>Browse</h3>
-            <p>Open a center and pick a suite or outlot.</p>
+            <p>Review current availability by state, city, or size. Each center page lists the available suites or outlots with square footage and address.</p>
           </div>
         </article>
         <article class="step">
           <div class="step-num">02</div>
           <div>
             <h3>Inquire</h3>
-            <p>Email leasing or use the contact form. Name the center and listing if you know it.</p>
+            <p>Contact the leasing team with your business name, required size, intended use, and target opening date.</p>
           </div>
         </article>
         <article class="step">
           <div class="step-num">03</div>
           <div>
             <h3>Credit check</h3>
-            <p>Send the tenant package. The leasing team reviews credit and follows up.</p>
+            <p>Complete the tenant application package. The leasing team reviews every application directly.</p>
           </div>
         </article>
       </div>
@@ -619,8 +626,8 @@ def build() -> None:
             "contact",
             """  <section class="page-hero">
     <div class="wrap">
-      <h1>Send the email to complete your inquiry</h1>
-      <p class="lede">If your email application opened, send the draft to complete the inquiry. If it did not, write to <a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a>.</p>
+      <h1>Send the email to complete your inquiry.</h1>
+      <p class="lede">If your email application opened, send the draft to finish. If it did not open, write directly to <a href="mailto:leasing@bearsmgmt.com">leasing@bearsmgmt.com</a>.</p>
       <p><a class="btn" href="ROOT/properties/">Back to properties</a></p>
     </div>
   </section>""",
